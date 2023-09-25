@@ -3,11 +3,11 @@ using namespace std;
 class playlist{
     public:
         string nombre;
-        string canciones[100]={};
         string estado;
         string indice;
+        string canciones[100]={};
     public:
-        playlist(string, string, string);
+        playlist(string, string);
         void agrega_cancion();
         void elimina_cancion();
         void mostrar_canciones();
@@ -22,11 +22,25 @@ class playlist{
         void mostrar_canrep();
 
 };
-playlist::playlist(string _nombre, string _estado,string _indice){
+class cancion{
+    public:
+        int indice;
+        string nombre;
+    public:
+        cancion(int,string);
+};
+
+
+playlist::playlist(string _nombre, string _estado){
     nombre = _nombre;
     estado= _estado;
-    indice=_indice;
 }
-void agrega_cancion(){
-    
+
+int main(){
+    int b;
+    string v;
+    cout<<"ingrese un id ", cin>>b;
+    cout<<"ingrese un nombre ", cin>>v;
+    cancion c1= cancion(b,v);
+
 }

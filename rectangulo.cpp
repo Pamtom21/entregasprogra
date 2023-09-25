@@ -24,9 +24,9 @@ void recta::CalcularPerimetro(){
     cout<<"\n el perimetro es "<<x<<""<<endl;
 }
 void recta::CambiarAlto(){
-    int d;
-    cout<<"\n quiere cambiar alto 1(si) o 2(no)", cin>> d;
-    if (d==1)
+    string d;
+    cout<<"\n quiere cambiar alto y(si) o n(no)", cin>> d;
+    if (d=="y")
         {
             int newalto;
             cout<<"\n ingrese numero ", cin>> newalto ;
@@ -37,9 +37,9 @@ void recta::CambiarAlto(){
         }
 }
 void recta::CambiarAncho(){
-    int d;
-    cout<<"\n quiere cambiar ancho 1(si) o 2(no)", cin>> d;
-    if (d==1)
+    string d;
+    cout<<"\n quiere cambiar ancho y(si) o n(no)", cin>> d;
+    if (d=="y")
         {
             int newancho;
             cout<<"\n ingrese numero ", cin>> newancho ;
@@ -51,14 +51,14 @@ void recta::CambiarAncho(){
 }
 int main()
     {
-        int a;
+        string a;
         recta c1=recta(2, 5);
-        cout<<"\n 1 o 2",cin>> a;
-        while (a==1){
+        cout<<"\n desea continuar y(si) o n(no)",cin>> a;
+        while (a=="y"){
             c1.CambiarAlto();
             c1.CambiarAncho();
             c1.CalcularArea();
             c1.CalcularPerimetro();
-            cout<<"\n 1 o 2",cin>> a;
+            cout<<"\n Desea continuar y(si) o n(no)",cin>> a;
         }
     };
