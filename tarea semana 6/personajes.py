@@ -64,9 +64,21 @@ class jugador2:
             if self.personajes[k].vida <= 0:
                 print(f"{self.personajes[k]} ha muerto\n")
                 self.personajes.remove(self.personajes[k])
+class campo:
+    def __init__(self,columnas, filas):
+        self.columnas=columnas
+        self.filas=filas
+        self.campos=[[0 for x in range(self.columnas)] for y in range(self.filas)]
+    def mostrar_campo(self):
+        for k in self.campos:
+            print(k)
+    def agregar_perso(self,perso,y,x):
+        self.campos[x][y]= perso
+
 def j1(pj1,pj2):
+        camp=campo(10,10)
         print("Menu jugador 1\n")
-        print("1. Desea crear un personaje?\n2.Desea ver los personajes disponibles?\n3. Desea atacar?")
+        print("1. Crear un personaje\n2. Ver los personajes disponibles?\n3. Atacar\n4. Desplegar tropas")
         opcion=input("Ingrese su eleccion aqui: ")
         print("\n")
         if opcion=="1":
@@ -115,9 +127,24 @@ def j1(pj1,pj2):
                 pj2.eliminar_personaje()
             else:
                 print("No hay personajes vivos\n")
+        elif opcion=="4":
+            pj1.mostrar_personajes()
+            p=int(input("Elija un personaje: "))
+            per=pj1.personajes[p]
+            y=int(input("Elija una posicion "))
+            if y>9:
+                y=9
+                camp.agregar_perso(per,y,1)
+                camp.mostrar_campo()
+            camp.agregar_perso(per,y,1)
+            camp.mostrar_campo()
+
+
 def j2(pj1,pj2):
+        camp=campo(10,10)
+        camp.mostrar_campo()
         print("Menu jugador 2\n")
-        print("1. Desea crear un personaje?\n2.Desea ver los personajes disponibles?\n3. Desea atacar?")
+        print("1. Crear un personaje?\n2. Ver los personajes disponibles\n3. Atacar\n4. Desplegar tropas")
         opcion=input("Ingrese su eleccion aqui: ")
         print("\n")
         if opcion=="1":
@@ -164,6 +191,19 @@ def j2(pj1,pj2):
                 pj1.eliminar_personaje()
             else:
                 print("No hay personajes vivos\n")
+        elif opcion=="4":
+            pj2.mostrar_personajes()
+            p=int(input("Elija un personaje: "))
+            per=pj2.personajes[p]
+            y=int(input("Elija una posicion "))
+            if y>9:
+                y=9
+                camp.agregar_perso(per,y,9)
+                camp.mostrar_campo()
+            camp.agregar_perso(per,y,9)
+            camp.mostrar_campo()
+
+
 def interfaz():
     pj1=jugador1()
     pj2=jugador2()
@@ -178,4 +218,4 @@ def interfaz():
         elif opcion=="2":
             j2(pj1,pj2)
 interfaz()
-        
+
