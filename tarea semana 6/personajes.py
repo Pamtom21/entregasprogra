@@ -68,15 +68,15 @@ class campo:
     def __init__(self,columnas, filas):
         self.columnas=columnas
         self.filas=filas
-        self.campos=[[0 for x in range(self.columnas)] for y in range(self.filas)]
+        self.campos=[['X' for x in range(self.columnas)] for y in range(self.filas)]
     def mostrar_campo(self):
         for k in self.campos:
             print(k)
     def agregar_perso(self,perso,y,x):
         self.campos[x][y]= perso
+        return self.campos
 
-def j1(pj1,pj2):
-        camp=campo(10,10)
+def j1(pj1,pj2,camp):
         print("Menu jugador 1\n")
         print("1. Crear un personaje\n2. Ver los personajes disponibles?\n3. Atacar\n4. Desplegar tropas")
         opcion=input("Ingrese su eleccion aqui: ")
@@ -134,15 +134,13 @@ def j1(pj1,pj2):
             y=int(input("Elija una posicion "))
             if y>9:
                 y=9
-                camp.agregar_perso(per,y,1)
-                camp.mostrar_campo()
-            camp.agregar_perso(per,y,1)
-            camp.mostrar_campo()
+                camp.agregar_perso(per,y,0)
+
+            camp.agregar_perso(per,y,0)
 
 
-def j2(pj1,pj2):
-        camp=campo(10,10)
-        camp.mostrar_campo()
+
+def j2(pj1,pj2,camp):
         print("Menu jugador 2\n")
         print("1. Crear un personaje?\n2. Ver los personajes disponibles\n3. Atacar\n4. Desplegar tropas")
         opcion=input("Ingrese su eleccion aqui: ")
@@ -199,23 +197,25 @@ def j2(pj1,pj2):
             if y>9:
                 y=9
                 camp.agregar_perso(per,y,9)
-                camp.mostrar_campo()
+
             camp.agregar_perso(per,y,9)
-            camp.mostrar_campo()
+
 
 
 def interfaz():
+    camp=campo(10,10)
     pj1=jugador1()
     pj2=jugador2()
     while True:
+        camp.mostrar_campo()
         print("Hola gamers")
         print("Elija un jugador:\n1. Jugador 1\n2. Jugador 2\n3. Salir")
         opcion=input("Ingrese aqui su opcion: ")
         if opcion=="3":
             break
         elif opcion=="1":
-            j1(pj1,pj2)
+            j1(pj1,pj2,camp)
         elif opcion=="2":
-            j2(pj1,pj2)
+            j2(pj1,pj2,camp)
 interfaz()
 
