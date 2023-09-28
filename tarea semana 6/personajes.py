@@ -66,7 +66,7 @@ class jugador2:
                 self.personajes.remove(self.personajes[k])
 def j1(pj1,pj2):
         print("Menu jugador 1\n")
-        print("1. Desea crear un personaje?\n2.Desea ver los personajes disponibles?\n3. Desea atacar?")
+        print("1. Crear un personaje\n2. Ver los personajes disponibles\n3. Atacar\n4. Salir")
         opcion=input("Ingrese su eleccion aqui: ")
         print("\n")
         if opcion=="1":
@@ -115,9 +115,11 @@ def j1(pj1,pj2):
                 pj2.eliminar_personaje()
             else:
                 print("No hay personajes vivos\n")
+        elif opcion=="4":
+            print("volviendo al menu principal")
 def j2(pj1,pj2):
         print("Menu jugador 2\n")
-        print("1. Desea crear un personaje?\n2.Desea ver los personajes disponibles?\n3. Desea atacar?")
+        print("1. Crear un personaje\n2. Ver los personajes disponibles\n3. Atacar\n4. Salir")
         opcion=input("Ingrese su eleccion aqui: ")
         print("\n")
         if opcion=="1":
@@ -164,6 +166,8 @@ def j2(pj1,pj2):
                 pj1.eliminar_personaje()
             else:
                 print("No hay personajes vivos\n")
+        elif opcion=="4":
+            print("volviendo al menu principal")
 def interfaz():
     pj1=jugador1()
     pj2=jugador2()
@@ -178,4 +182,3 @@ def interfaz():
         elif opcion=="2":
             j2(pj1,pj2)
 interfaz()
-        
