@@ -75,7 +75,12 @@ class campo:
     def agregar_perso(self,perso,y,x):
         self.campos[x][y]= perso
         return self.campos
-
+    def eliminar_perso(self):
+        for k in range(len(self.campos)):
+            for j in range(k):
+                if self.campos[k][j] != 'X' and self.campos[k][j].vida <= 0:
+                    self.campos[k][j]= 'X'   
+                    return self.campos         
 def j1(pj1,pj2,camp):
         print("Menu jugador 1\n")
         print("1. Crear un personaje\n2. Ver los personajes disponibles?\n3. Atacar\n4. Desplegar tropas")
@@ -125,6 +130,7 @@ def j1(pj1,pj2,camp):
             if len(pj2.personajes)>0:
                 pj2.personajes[y].recibir_dano(pj1.personajes[x])
                 pj2.eliminar_personaje()
+                camp.eliminar_perso()
             else:
                 print("No hay personajes vivos\n")
         elif opcion=="4":
@@ -135,7 +141,6 @@ def j1(pj1,pj2,camp):
             if y>9:
                 y=9
                 camp.agregar_perso(per,y,0)
-
             camp.agregar_perso(per,y,0)
 
 
@@ -150,7 +155,7 @@ def j2(pj1,pj2,camp):
             subopcion=input("ingrese su opcion aqui: ")
             if subopcion=="1":
                 nombre=input("Ingrese el nombre: ")
-                perso=soldado(nombre,100,10, "Soldado",5)
+                perso=soldado(nombre,100,50, "Soldado",5)
             if subopcion=="2":
                 nombre=input("Ingrese el nombre: ")
                 perso=mago(nombre,50,15, "Mago",2)
@@ -187,6 +192,7 @@ def j2(pj1,pj2,camp):
             if len(pj1.personajes)>0:
                 pj1.personajes[y].recibir_dano(pj2.personajes[x])
                 pj1.eliminar_personaje()
+                camp.eliminar_perso()
             else:
                 print("No hay personajes vivos\n")
         elif opcion=="4":
