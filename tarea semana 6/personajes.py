@@ -1,10 +1,13 @@
+f=0
+h=0
 class personaje:
-    def __init__(self,Nombre,Vida, p_ataque, clase, mov):
+    def __init__(self,Nombre,Vida, p_ataque, clase, mov, id):
         self.nombre=Nombre
         self.vida=Vida
         self.p_ataque=p_ataque
         self.clase=clase
         self.mov= mov
+        self.id=id
     def __str__(self):
         return f"{self.nombre}"
     def ataque(self, persona):
@@ -18,21 +21,21 @@ class personaje:
     def mover(self):
         print(f"te has movido {self.mov}")
 class soldado(personaje):
-    def __init__(self, Nombre, Vida, p_ataque, clase,mov):
-        super().__init__(Nombre, Vida, p_ataque, clase,mov)
+    def __init__(self, Nombre, Vida, p_ataque, clase,mov,id):
+        super().__init__(Nombre, Vida, p_ataque, clase,mov,id)
     def ataque(self,persona):
         print("atacas de modo fisico")
         super().ataque(persona)
 
 class mago(personaje):
-    def __init__(self, Nombre, Vida, p_ataque, clase,mov):
-        super().__init__(Nombre, Vida, p_ataque, clase,mov)
+    def __init__(self, Nombre, Vida, p_ataque, clase,mov,id):
+        super().__init__(Nombre, Vida, p_ataque, clase,mov,id)
     def ataque(self,persona):
         print("atacas a larga de distancia por medio de magia negra")
         super().ataque(persona)
 class arquero(personaje):
-    def __init__(self, Nombre, Vida, p_ataque, clase,mov):
-        super().__init__(Nombre, Vida, p_ataque, clase,mov)
+    def __init__(self, Nombre, Vida, p_ataque, clase,mov,id):
+        super().__init__(Nombre, Vida, p_ataque, clase,mov,id)
     def ataque(self,persona):
         print("tu ataque es por medio de flechas")
         super().ataque(persona)
@@ -80,10 +83,21 @@ class campo:
             for j in range(k):
                 if self.campos[k][j] != 'X' and self.campos[k][j].vida <= 0:
                     self.campos[k][j]= 'X'   
-                    return self.campos         
+                    return self.campos
+    def mover_personaje(self,person,p,x):
+            if x>person.personajes[p].mov:
+                x=person.personajes[p].mov
+            for k in range(len(self.campos)):
+                for j in range(k):
+                    if self.campos[k][j] != 'X' and self.campos[k][j].id == person.personajes[p].id:
+                            print("hola")
+                            l=k+x
+                            self.campos[k][j]= 'X'
+                            self.campos[l][j] = person.personajes[p]
 def j1(pj1,pj2,camp):
+        global f
         print("Menu jugador 1\n")
-        print("1. Crear un personaje\n2. Ver los personajes disponibles?\n3. Atacar\n4. Desplegar tropas")
+        print("1. Crear un personaje\n2. Ver los personajes disponibles?\n3. Atacar\n4. Desplegar tropas\n5. Mover tropas ")
         opcion=input("Ingrese su eleccion aqui: ")
         print("\n")
         if opcion=="1":
@@ -91,15 +105,19 @@ def j1(pj1,pj2,camp):
             subopcion=input("ingrese su opcion aqui: ")
             if subopcion=="1":
                 nombre=input("Ingrese el nombre: ")
-                perso=soldado(nombre,100,10, "Soldado",5)
+                perso=soldado(nombre,100,10, "Soldado",5,str(f))
+                f+=1
             if subopcion=="2":
                 nombre=input("Ingrese el nombre: ")
-                perso=mago(nombre,50,15, "Mago",2)
+                perso=mago(nombre,50,15, "Mago",2,str(f))
+                f+=1
             if subopcion=="3":
                 nombre=input("Ingrese el nombre: ")
-                perso=arquero(nombre,80,5, "Arquero",3)
+                perso=arquero(nombre,80,5, "Arquero",3,str(f))
+                f+=1
             pj1.agregar_personajes(perso)
             print("El personaje a sido creado con exito\n")
+            return f
         elif opcion=="2":
             pj1.mostrar_personajes()
             print("desea ver las estadisticas del personaje\n1. Si\n2. No")
@@ -142,10 +160,17 @@ def j1(pj1,pj2,camp):
                 y=9
                 camp.agregar_perso(per,y,0)
             camp.agregar_perso(per,y,0)
-
-
-
+        elif opcion=="5":
+            print("Hacia donde desea moverse\n1. adelante\n2. atras\n3. izquierda\n4. derecha")
+            opcion=input("Ingrese su opcion aqui: ")
+            if opcion=="1":
+                pj1.mostrar_personajes()
+                p=int(input("elija que personaje desea mover: "))
+                x=int(input("Ingrese cuantas casillas que desea moverse: "))
+                camp.mover_personaje(pj1,p,x)
+                
 def j2(pj1,pj2,camp):
+        global h
         print("Menu jugador 2\n")
         print("1. Crear un personaje?\n2. Ver los personajes disponibles\n3. Atacar\n4. Desplegar tropas")
         opcion=input("Ingrese su eleccion aqui: ")
@@ -155,15 +180,19 @@ def j2(pj1,pj2,camp):
             subopcion=input("ingrese su opcion aqui: ")
             if subopcion=="1":
                 nombre=input("Ingrese el nombre: ")
-                perso=soldado(nombre,100,50, "Soldado",5)
+                perso=soldado(nombre,100,50, "Soldado",5,h)
+                h+=1
             if subopcion=="2":
                 nombre=input("Ingrese el nombre: ")
-                perso=mago(nombre,50,15, "Mago",2)
+                perso=mago(nombre,50,15, "Mago",2,h)
+                h+=1
             if subopcion=="3":
                 nombre=input("Ingrese el nombre: ")
-                perso=arquero(nombre,80,5, "Arquero",3)
+                perso=arquero(nombre,80,5, "Arquero",3,h)
+                h+=1
             pj2.agregar_personajes(perso)
             print("El personaje a sido creado con exito\n")
+            return h
         elif opcion=="2":
             pj2.mostrar_personajes()
             print("desea ver las estadisticas del personaje\n1. Si\n2. No")
