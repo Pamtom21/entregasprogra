@@ -80,7 +80,7 @@ class campo:
         return self.campos
     def eliminar_perso(self):
         for k in range(len(self.campos)):
-            for j in range(k):
+            for j in range(len(self.campos)):
                 if self.campos[k][j] != 'X' and self.campos[k][j].vida <= 0:
                     self.campos[k][j]= 'X'   
                     return self.campos
@@ -88,12 +88,12 @@ class campo:
             if x>person.personajes[p].mov:
                 x=person.personajes[p].mov
             for k in range(len(self.campos)):
-                for j in range(k):
-                    if self.campos[k][j] != 'X' and self.campos[k][j].id == person.personajes[p].id:
-                            print("hola")
-                            l=k+x
+                for j in range(len(self.campos)):
+                    if self.campos[k][j] != 'X':
+                        if self.campos[k][j].id == person.personajes[p].id :
+                            self.campos[k+x][j] = person.personajes[p]
                             self.campos[k][j]= 'X'
-                            self.campos[l][j] = person.personajes[p]
+                            return self.campos
 def j1(pj1,pj2,camp):
         global f
         print("Menu jugador 1\n")
@@ -105,7 +105,7 @@ def j1(pj1,pj2,camp):
             subopcion=input("ingrese su opcion aqui: ")
             if subopcion=="1":
                 nombre=input("Ingrese el nombre: ")
-                perso=soldado(nombre,100,10, "Soldado",5,str(f))
+                perso=soldado(nombre,100,10, "Soldado",3,str(f))
                 f+=1
             if subopcion=="2":
                 nombre=input("Ingrese el nombre: ")
@@ -180,15 +180,15 @@ def j2(pj1,pj2,camp):
             subopcion=input("ingrese su opcion aqui: ")
             if subopcion=="1":
                 nombre=input("Ingrese el nombre: ")
-                perso=soldado(nombre,100,50, "Soldado",5,h)
+                perso=soldado(nombre,100,50, "Soldado",3,str(h))
                 h+=1
             if subopcion=="2":
                 nombre=input("Ingrese el nombre: ")
-                perso=mago(nombre,50,15, "Mago",2,h)
+                perso=mago(nombre,50,15, "Mago",2,str(h))
                 h+=1
             if subopcion=="3":
                 nombre=input("Ingrese el nombre: ")
-                perso=arquero(nombre,80,5, "Arquero",3,h)
+                perso=arquero(nombre,80,5, "Arquero",3,str(h))
                 h+=1
             pj2.agregar_personajes(perso)
             print("El personaje a sido creado con exito\n")
