@@ -74,7 +74,9 @@ class campo:
         self.campos=[['X' for x in range(self.columnas)] for y in range(self.filas)]
     def mostrar_campo(self):
         for k in self.campos:
-            print(k)
+            resultado= " ".join([str(y) for y in k])
+            print(resultado)
+
     def agregar_perso(self,perso,y,x):
         self.campos[x][y]= perso
         return self.campos
@@ -84,16 +86,74 @@ class campo:
                 if self.campos[k][j] != 'X' and self.campos[k][j].vida <= 0:
                     self.campos[k][j]= 'X'   
                     return self.campos
-    def mover_personaje(self,person,p,x):
-            if x>person.personajes[p].mov:
-                x=person.personajes[p].mov
-            for k in range(len(self.campos)):
-                for j in range(len(self.campos)):
-                    if self.campos[k][j] != 'X':
-                        if self.campos[k][j].id == person.personajes[p].id :
-                            self.campos[k+x][j] = person.personajes[p]
-                            self.campos[k][j]= 'X'
-                            return self.campos
+    def mover_personaje(self,person):
+            print("Hacia donde desea moverse\n1. adelante\n2. atras\n3. izquierda\n4. derecha")
+            opcion=input("Ingrese su opcion aqui: ")
+            if opcion=="1":
+                person.mostrar_personajes()
+                p=int(input("elija que personaje desea mover: "))
+                x=int(input("Ingrese cuantas casillas que desea moverse: "))
+                if x>person.personajes[p].mov:
+                    x=person.personajes[p].mov
+                for k in range(len(self.campos)):
+                    for j in range(len(self.campos)):
+                        if self.campos[k][j] != 'X':
+                            if self.campos[k][j].id == person.personajes[p].id :
+                                l= k+x
+                                if l > len(self.campos)-1:
+                                    l=len(self.campos)-1
+                                self.campos[l][j] = person.personajes[p]
+                                self.campos[k][j]= 'X'
+                                return self.campos
+            elif opcion == "2":
+                person.mostrar_personajes()
+                p=int(input("elija que personaje desea mover: "))
+                x=int(input("Ingrese cuantas casillas que desea moverse: "))
+                if x>person.personajes[p].mov:
+                    x=person.personajes[p].mov
+                for k in range(len(self.campos)):
+                    for j in range(len(self.campos)):
+                        if self.campos[k][j] != 'X':
+                            if self.campos[k][j].id == person.personajes[p].id :
+                                l= k-x
+                                if l < 0:
+                                    l=0
+                                self.campos[l][j] = person.personajes[p]
+                                self.campos[k][j]= 'X'
+                                return self.campos
+            elif opcion == "3":
+                person.mostrar_personajes()
+                p=int(input("elija que personaje desea mover: "))
+                x=int(input("Ingrese cuantas casillas que desea moverse: "))
+                if x>person.personajes[p].mov:
+                    x=person.personajes[p].mov
+                for k in range(len(self.campos)):
+                    for j in range(len(self.campos)):
+                        if self.campos[k][j] != 'X':
+                            if self.campos[k][j].id == person.personajes[p].id :
+                                l= j-x
+                                if l < 0:
+                                    l=0
+                                self.campos[k][l] = person.personajes[p]
+                                self.campos[k][j]= 'X'
+                                return self.campos
+            elif opcion == "4":
+                person.mostrar_personajes()
+                p=int(input("elija que personaje desea mover: "))
+                x=int(input("Ingrese cuantas casillas que desea moverse: "))
+                if x>person.personajes[p].mov:
+                    x=person.personajes[p].mov
+                for k in range(len(self.campos)):
+                    for j in range(len(self.campos)):
+                        if self.campos[k][j] != 'X':
+                            if self.campos[k][j].id == person.personajes[p].id :
+                                l= j+x
+                                if l >= len(self.campos)-1:
+                                    l=len(self.campos)-1
+                                self.campos[k][l] = person.personajes[p]
+                                self.campos[k][j]= 'X'
+                                return self.campos
+
 def j1(pj1,pj2,camp):
         global f
         print("Menu jugador 1\n")
@@ -161,18 +221,12 @@ def j1(pj1,pj2,camp):
                 camp.agregar_perso(per,y,0)
             camp.agregar_perso(per,y,0)
         elif opcion=="5":
-            print("Hacia donde desea moverse\n1. adelante\n2. atras\n3. izquierda\n4. derecha")
-            opcion=input("Ingrese su opcion aqui: ")
-            if opcion=="1":
-                pj1.mostrar_personajes()
-                p=int(input("elija que personaje desea mover: "))
-                x=int(input("Ingrese cuantas casillas que desea moverse: "))
-                camp.mover_personaje(pj1,p,x)
+                camp.mover_personaje(pj1)
                 
 def j2(pj1,pj2,camp):
         global h
         print("Menu jugador 2\n")
-        print("1. Crear un personaje?\n2. Ver los personajes disponibles\n3. Atacar\n4. Desplegar tropas")
+        print("1. Crear un personaje?\n2. Ver los personajes disponibles\n3. Atacar\n4. Desplegar tropas\n5. Mover ")
         opcion=input("Ingrese su eleccion aqui: ")
         print("\n")
         if opcion=="1":
@@ -234,6 +288,8 @@ def j2(pj1,pj2,camp):
                 camp.agregar_perso(per,y,9)
 
             camp.agregar_perso(per,y,9)
+        elif opcion == "5":
+            camp.mover_personaje(pj2)
 
 
 
@@ -253,4 +309,9 @@ def interfaz():
         elif opcion=="2":
             j2(pj1,pj2,camp)
 interfaz()
-
+# camp=campo(10,10)
+# camp.mostrar_campo()
+# per=soldado("Juan",50,40,"Soldado",3,1)
+# camp.agregar_perso(per,3,9)
+# print("\n")
+# camp.mostrar_campo()
