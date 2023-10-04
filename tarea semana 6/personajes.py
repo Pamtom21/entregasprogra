@@ -1,15 +1,16 @@
 f=0
 h=0
 class personaje:
-    def __init__(self,Nombre,Vida, p_ataque, clase, mov, id):
+    def __init__(self,Nombre,Vida, p_ataque, clase, mov, id,icono):
         self.nombre=Nombre
         self.vida=Vida
         self.p_ataque=p_ataque
         self.clase=clase
         self.mov= mov
         self.id=id
+        self.icono=icono
     def __str__(self):
-        return f"{self.nombre}"
+        return f"{self.icono}"
     def ataque(self, persona):
         print(f"has hecho {self.p_ataque} puntos de daño a {persona}\n")
     def recibir_dano(self,persona):
@@ -21,21 +22,21 @@ class personaje:
     def mover(self):
         print(f"te has movido {self.mov}")
 class soldado(personaje):
-    def __init__(self, Nombre, Vida, p_ataque, clase,mov,id):
-        super().__init__(Nombre, Vida, p_ataque, clase,mov,id)
+    def __init__(self, Nombre, Vida, p_ataque, clase,mov,id,icono="S"):
+        super().__init__(Nombre, Vida, p_ataque, clase,mov,id,icono)
     def ataque(self,persona):
         print("atacas de modo fisico")
         super().ataque(persona)
 
 class mago(personaje):
-    def __init__(self, Nombre, Vida, p_ataque, clase,mov,id):
-        super().__init__(Nombre, Vida, p_ataque, clase,mov,id)
+    def __init__(self, Nombre, Vida, p_ataque, clase,mov,id,icono="M"):
+        super().__init__(Nombre, Vida, p_ataque, clase,mov,id,icono)
     def ataque(self,persona):
         print("atacas a larga de distancia por medio de magia negra")
         super().ataque(persona)
 class arquero(personaje):
-    def __init__(self, Nombre, Vida, p_ataque, clase,mov,id):
-        super().__init__(Nombre, Vida, p_ataque, clase,mov,id)
+    def __init__(self, Nombre, Vida, p_ataque, clase,mov,id,icono="l"):
+        super().__init__(Nombre, Vida, p_ataque, clase,mov,id,icono)
     def ataque(self,persona):
         print("tu ataque es por medio de flechas")
         super().ataque(persona)
@@ -71,10 +72,10 @@ class campo:
     def __init__(self,columnas, filas):
         self.columnas=columnas
         self.filas=filas
-        self.campos=[['X' for x in range(self.columnas)] for y in range(self.filas)]
+        self.campos=[['_' for x in range(self.columnas)] for y in range(self.filas)]
     def mostrar_campo(self):
         for k in self.campos:
-            resultado= " ".join([str(y) for y in k])
+            resultado= "   ".join([str(y) for y in k])
             print(resultado)
 
     def agregar_perso(self,perso,y,x):
@@ -97,13 +98,13 @@ class campo:
                     x=person.personajes[p].mov
                 for k in range(len(self.campos)):
                     for j in range(len(self.campos)):
-                        if self.campos[k][j] != 'X':
+                        if self.campos[k][j] != '_':
                             if self.campos[k][j].id == person.personajes[p].id :
                                 l= k+x
                                 if l > len(self.campos)-1:
                                     l=len(self.campos)-1
                                 self.campos[l][j] = person.personajes[p]
-                                self.campos[k][j]= 'X'
+                                self.campos[k][j]= '_'
                                 return self.campos
             elif opcion == "2":
                 person.mostrar_personajes()
@@ -113,13 +114,13 @@ class campo:
                     x=person.personajes[p].mov
                 for k in range(len(self.campos)):
                     for j in range(len(self.campos)):
-                        if self.campos[k][j] != 'X':
+                        if self.campos[k][j] != '_':
                             if self.campos[k][j].id == person.personajes[p].id :
                                 l= k-x
                                 if l < 0:
                                     l=0
                                 self.campos[l][j] = person.personajes[p]
-                                self.campos[k][j]= 'X'
+                                self.campos[k][j]= '_'
                                 return self.campos
             elif opcion == "3":
                 person.mostrar_personajes()
@@ -129,13 +130,13 @@ class campo:
                     x=person.personajes[p].mov
                 for k in range(len(self.campos)):
                     for j in range(len(self.campos)):
-                        if self.campos[k][j] != 'X':
+                        if self.campos[k][j] != '_':
                             if self.campos[k][j].id == person.personajes[p].id :
                                 l= j-x
                                 if l < 0:
                                     l=0
                                 self.campos[k][l] = person.personajes[p]
-                                self.campos[k][j]= 'X'
+                                self.campos[k][j]= '_'
                                 return self.campos
             elif opcion == "4":
                 person.mostrar_personajes()
@@ -145,14 +146,82 @@ class campo:
                     x=person.personajes[p].mov
                 for k in range(len(self.campos)):
                     for j in range(len(self.campos)):
-                        if self.campos[k][j] != 'X':
+                        if self.campos[k][j] != '_':
                             if self.campos[k][j].id == person.personajes[p].id :
                                 l= j+x
                                 if l >= len(self.campos)-1:
                                     l=len(self.campos)-1
                                 self.campos[k][l] = person.personajes[p]
-                                self.campos[k][j]= 'X'
+                                self.campos[k][j]= '_'
                                 return self.campos
+    def mover_personaje2(self,person):
+            print("Hacia donde desea moverse\n1. adelante\n2. atras\n3. izquierda\n4. derecha")
+            opcion=input("Ingrese su opcion aqui: ")
+            if opcion=="1":
+                person.mostrar_personajes()
+                p=int(input("elija que personaje desea mover: "))
+                x=int(input("Ingrese cuantas casillas que desea moverse: "))
+                if x>person.personajes[p].mov:
+                    x=person.personajes[p].mov
+                for k in range(len(self.campos)):
+                    for j in range(len(self.campos)):
+                        if self.campos[k][j] != '_':
+                            if self.campos[k][j].id == person.personajes[p].id :
+                                l= k-x
+                                if l > len(self.campos)-1:
+                                    l=len(self.campos)-1
+                                self.campos[l][j] = person.personajes[p]
+                                self.campos[k][j]= '_'
+                                return self.campos
+            elif opcion == "2":
+                person.mostrar_personajes()
+                p=int(input("elija que personaje desea mover: "))
+                x=int(input("Ingrese cuantas casillas que desea moverse: "))
+                if x>person.personajes[p].mov:
+                    x=person.personajes[p].mov
+                for k in range(len(self.campos)):
+                    for j in range(len(self.campos)):
+                        if self.campos[k][j] != '_':
+                            if self.campos[k][j].id == person.personajes[p].id :
+                                l= k+x
+                                if l < 0:
+                                    l=0
+                                self.campos[l][j] = person.personajes[p]
+                                self.campos[k][j]= '_'
+                                return self.campos
+            elif opcion == "3":
+                person.mostrar_personajes()
+                p=int(input("elija que personaje desea mover: "))
+                x=int(input("Ingrese cuantas casillas que desea moverse: "))
+                if x>person.personajes[p].mov:
+                    x=person.personajes[p].mov
+                for k in range(len(self.campos)):
+                    for j in range(len(self.campos)):
+                        if self.campos[k][j] != '_':
+                            if self.campos[k][j].id == person.personajes[p].id :
+                                l= j-x
+                                if l < 0:
+                                    l=0
+                                self.campos[k][l] = person.personajes[p]
+                                self.campos[k][j]= '_'
+                                return self.campos
+            elif opcion == "4":
+                person.mostrar_personajes()
+                p=int(input("elija que personaje desea mover: "))
+                x=int(input("Ingrese cuantas casillas que desea moverse: "))
+                if x>person.personajes[p].mov:
+                    x=person.personajes[p].mov
+                for k in range(len(self.campos)):
+                    for j in range(len(self.campos)):
+                        if self.campos[k][j] != '_':
+                            if self.campos[k][j].id == person.personajes[p].id :
+                                l= j+x
+                                if l >= len(self.campos)-1:
+                                    l=len(self.campos)-1
+                                self.campos[k][l] = person.personajes[p]
+                                self.campos[k][j]= '_'
+                                return self.campos
+
 
 def j1(pj1,pj2,camp):
         global f
@@ -289,7 +358,7 @@ def j2(pj1,pj2,camp):
 
             camp.agregar_perso(per,y,9)
         elif opcion == "5":
-            camp.mover_personaje(pj2)
+            camp.mover_personaje2(pj2)
 
 
 
