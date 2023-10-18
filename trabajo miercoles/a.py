@@ -31,7 +31,11 @@ class sistema:
     def agregar(self):
         d='1'
         while d == '1': 
-            x=int(input("Ingrese numero: "))
+            try:
+                x=int(input("Ingrese un numero: "))
+            except ValueError:
+                print("Error")
+                break
             self.lista.append(x)
             print(self.lista)
             op=input('y para salir o enter para continuar')
@@ -47,8 +51,22 @@ class sistema:
 
     def buscar(self):
         if len(self.lista) >= 1:
-            x=int(input("Ingrese el numero a buscar: "))
-            binary_search(self.lista,0, len(self.lista)-1,x)
+            k=0
+            while k < len(self.lista)-1:
+                if self.lista[k] < self.lista[k+1]:
+                    f='1'
+                    k+=1
+                else:
+                    f='2'
+                    break
+            if f == '1':
+                try:
+                    x=int(input("Ingrese el numero a buscar: "))
+                    binary_search(self.lista,0, len(self.lista)-1,x)
+                except ValueError:
+                    print("Error")
+            elif f == '2':
+                print("La lista no esta ordenada")
         else:
             print("Se necesita al menos un numero para usar esta funcion")
 siste=sistema()
