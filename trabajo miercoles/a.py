@@ -46,7 +46,7 @@ class sistema:
             print("Lista ordenada: ", self.lista)
             return self.lista
         else: 
-            print("Se necesitan al menos 2 numeros para usar esta funcion")
+            print("Se necesitan al menos 2 numeros en la lista para usar esta funcion")
 
     def buscar(self):
         if len(self.lista) >= 1:
@@ -67,7 +67,7 @@ class sistema:
             elif f == '2':
                 print("La lista no esta ordenada")
         else:
-            print("Se necesita al menos un numero para usar esta funcion")
+            print("Se necesita al menos un numero en la lista para usar esta funcion")
 siste=sistema()
 while True:
     print("Bienvenido al sistema mas ordenado")
