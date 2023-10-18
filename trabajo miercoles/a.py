@@ -5,7 +5,7 @@ def quick_sort(arr):
         pivot = arr[0]
         less = [x for x in arr[1:] if x <= pivot]
         greater = [x for x in arr[1:] if x > pivot]
-        print(arr)
+        print("lista: ",arr,"\n", pivot, less, greater)
         return quick_sort(less) + [pivot] + quick_sort(greater)
 def binary_search(arr, low, high, x):
     if high >= low:
@@ -37,15 +37,20 @@ class sistema:
             if op=='y':
                 d= '2'
     def ordenar(self):
-        print(self.lista)
-        self.lista = quick_sort(self.lista)
-        print(self.lista)
-        return self.lista
+        if len(self.lista) > 1:
+            print(self.lista)
+            self.lista = quick_sort(self.lista)
+            print(self.lista)
+            return self.lista
+        else: 
+            print("Se necesitan al menos 2 numeros para usar esta funcion")
 
     def buscar(self):
-        x=int(input("Ingrese el numero a buscar: "))
-        result=binary_search(self.lista,0, len(self.lista)-1,x)
-        print("El numero buscado esta en la posicion: ", result)
+        if len(self.lista) >= 1:
+            x=int(input("Ingrese el numero a buscar: "))
+            binary_search(self.lista,0, len(self.lista)-1,x)
+        else:
+            print("Se necesita al menos un numero para usar esta funcion")
 siste=sistema()
 while True:
     print("Bienvenido al sistema mas ordenado")
