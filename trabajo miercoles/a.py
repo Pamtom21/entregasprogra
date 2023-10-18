@@ -17,13 +17,14 @@ def binary_search(arr, low, high, x):
             return mid
 
         elif arr[mid] > x:
+            print("parte en la que se encuentra el numero: ", arr[:mid])
             return binary_search(arr, low, mid - 1, x)
  
         else:
+            print("parte en la que se encuentra el numero: ",arr[mid:])
             return binary_search(arr, mid + 1, high, x)
     else:
         print("El numero no se encuentra disponible en la lista")
-        return -1
 class sistema:
     def __init__(self):
         self.lista= []
