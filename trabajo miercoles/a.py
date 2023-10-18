@@ -71,7 +71,7 @@ class sistema:
 siste=sistema()
 while True:
     print("Bienvenido al sistema mas ordenado")
-    print("1. Agregar numeros\n2. Ordenar lista\n3.Buscar numero en la lista\n4.Salir")
+    print("1. Agregar numeros a la lista\n2. Ordenar lista\n3.Buscar numero en la lista\n4.Salir")
     opcion=input("Ingrese su opcion aqui: ")
     if opcion=="4":
         print( "Gracias vuelva pronto")
