@@ -5,7 +5,7 @@ def quick_sort(arr):
         pivot = arr[0]
         less = [x for x in arr[1:] if x <= pivot]
         greater = [x for x in arr[1:] if x > pivot]
-        print("lista: ",arr,"\n", "parte izquierda: ",less,"mitad: ",pivot, "parte derecha: ",greater)
+        print("lista: ",arr,"\n", "parte izquierda: ",less,"comparativo: ",pivot, "parte derecha: ",greater)
         return quick_sort(less) + [pivot] + quick_sort(greater)
 def binary_search(arr, low, high, x):
     if high >= low:
@@ -17,11 +17,11 @@ def binary_search(arr, low, high, x):
             return mid
 
         elif arr[mid] > x:
-            print("parte en la que se encuentra el numero: ", arr[:mid])
+            print("el numero se encuentra en la parte izquierda: ", arr[:mid])
             return binary_search(arr, low, mid - 1, x)
  
         else:
-            print("parte en la que se encuentra el numero: ",arr[mid:])
+            print("el numero se encuentra en la parte derecha: ",arr[mid:])
             return binary_search(arr, mid + 1, high, x)
     else:
         print("El numero no se encuentra disponible en la lista")
