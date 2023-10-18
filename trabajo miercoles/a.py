@@ -33,14 +33,13 @@ class sistema:
         while d == '1': 
             try:
                 x=int(input("Ingrese un numero: "))
+                self.lista.append(x)
+                print(self.lista)
+                op=input('ingrese y para salir o enter para continuar: ')
+                if op=='y':
+                    d= '2'
             except ValueError:
                 print("Error")
-                break
-            self.lista.append(x)
-            print(self.lista)
-            op=input('y para salir o enter para continuar')
-            if op=='y':
-                d= '2'
     def ordenar(self):
         if len(self.lista) > 1:
             self.lista = quick_sort(self.lista)
